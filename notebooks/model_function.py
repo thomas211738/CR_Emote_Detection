@@ -1,0 +1,42 @@
+import torch
+import torch.nn as nn
+from torchvision import models, transforms
+from PIL import Image
+import cv2
+
+# ---- Load model ----
+model = models.resnet18(weights=None)
+model.fc = nn.Linear(512, 5)
+model.load_state_dict(torch.load("models/best_resnet18_emotes.pth", map_location="cpu"))
+model.eval()
+
+# ---- Transforms (must match training) ----
+transform = transforms.Compose([
+    transforms.Resize((224,224)),
+    transforms.ToTensor(),
+    transforms.Normalize(
+        mean=[0.485, 0.456, 0.406],
+        std=[0.229, 0.224, 0.225]
+    )
+])
+
+idx_to_class = {0:"Cry", 1:"HandsUp", 2:"Still", 3:"TongueOut", 4:"Yawn"}
+
+def predict_cr(frame):
+    # Convert BGR (OpenCV) → RGB
+    img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    img = Image.fromarray(img)
+
+    # Transform
+    img = transform(img).unsqueeze(0)  # shape: (1,3,224,224)
+
+    # Predict
+    with torch.no_grad():
+        outputs = model(img)
+        _, pred = torch.max(outputs, 1)
+        print(outputs)
+
+    return pred.item()
+
+test_predict = predict_cr(cv2.imread("data/frames/test/Still/Still25_f1.jpg"))
+print(f"Test prediction: {test_predict}")  # Expected: HandsUp
