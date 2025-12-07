@@ -3,6 +3,7 @@ import torch.nn as nn
 from torchvision import models, transforms
 from PIL import Image
 import cv2
+import torch.nn.functional as F
 
 # ---- Load model ----
 model = models.resnet18(weights=None)
@@ -34,7 +35,12 @@ def predict_cr(frame):
     with torch.no_grad():
         outputs = model(img)
         _, pred = torch.max(outputs, 1)
+        probs = F.softmax(outputs, dim=1)   # still shape (1, 5)
         print(outputs)
+        probs = F.softmax(outputs, dim=1)[0]
+        readable = [round(p.item(), 4) for p in probs]
+        print(readable)
+
 
     return pred.item()
 

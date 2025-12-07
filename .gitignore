@@ -2,3 +2,5 @@ data/all_clips/original_clips/
 data/all_clips/output_clips/
 .DS_Store
 data/frames/
+models/best_resnet18_emotes_v2.pth
+__pycache__/
