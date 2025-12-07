@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from PIL import Image
 import time
-from notebooks.model_function_no_tongue import predict_cr  # returns class index 0..3
+from model_function_no_tongue import predict_cr  # returns class index 0..3
 
 # --- CONFIGURATION CONSTANTS ---
 WINDOW_WIDTH = 720
