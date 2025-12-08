@@ -52,10 +52,10 @@ try:
     CR_toxic = load_gif_frames("./data/emotes/toxic-goblin.gif")
     CR_yawning = load_gif_frames("./data/emotes/yawning_princess.gif")
 
-    print(f"✅ All CR GIFs loaded successfully!")
+    print(f"All CR GIFs loaded successfully!")
 
 except Exception as e:
-    print("❌ Error loading GIFs!")
+    print("Error loading GIFs!")
     print(f"Error details: {e}")
     exit()
 
@@ -70,22 +70,22 @@ ANIMATION_MAP = {
 }
 
 # --- MAIN LOGIC ---
-print("🎥 Searching for available cameras...")
+print("Searching for available cameras...")
 
 # Find available cameras
 available_cameras = []
 for i in range(5):  # Check first 5 camera indices
     test_cap = cv2.VideoCapture(i)
     if test_cap.isOpened():
-        print(f"✅ Camera {i} is available")
+        print(f"Camera {i} is available")
         available_cameras.append(i)
         test_cap.release()
 
 if not available_cameras:
-    print("❌ No cameras found!")
+    print("No cameras found!")
     exit()
 
-print(f"\n📷 Using camera index: {available_cameras[0]}")
+print(f"Using camera index: {available_cameras[0]}")
 cap = cv2.VideoCapture(available_cameras[0])
 
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, CAMERA_WIDTH)
@@ -93,7 +93,7 @@ cap.set(cv2.CAP_PROP_FRAME_HEIGHT, CAMERA_HEIGHT)
 cap.set(cv2.CAP_PROP_FPS, 30)
 
 if not cap.isOpened():
-    print("❌ Error: Could not open webcam.")
+    print("Error: Could not open webcam.")
     exit()
 
 # Initialize windows
@@ -125,7 +125,7 @@ while cap.isOpened():
     ret, frame = cap.read()
     
     if not ret:
-        print("❌ Failed to grab frame")
+        print("Failed to grab frame")
         break
     
     # Resize camera frame to match window size for display
@@ -148,7 +148,7 @@ while cap.isOpened():
                 current_animation = ANIMATION_MAP[prediction]
                 animation_frame_index = 0  # Reset to start of new animation
                 current_gesture = new_gesture
-                print(f"🎯 Detected: {current_gesture}")
+                print(f"Detected: {current_gesture}")
         
         last_prediction_time = current_time
     
@@ -173,7 +173,7 @@ while cap.isOpened():
         break
 
 # --- CLEANUP ---
-print("👋 Shutting down...")
+print("Shutting down...")
 cap.release()
 cv2.destroyAllWindows()
-print("✅ Application closed successfully!")
+print("Application closed successfully!")
