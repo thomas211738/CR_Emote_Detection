@@ -7,7 +7,8 @@ import torch.nn.functional as F
 
 # ---- Load model ----
 model = models.resnet18(weights=None)
-model.fc = nn.Linear(512, 5)
+in_features = model.fc.in_features
+model.fc = nn.Linear(in_features, 5)
 model.load_state_dict(torch.load("models/best_resnet18_emotes.pth", map_location="cpu"))
 model.eval()
 

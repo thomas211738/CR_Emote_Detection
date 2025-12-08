@@ -12,7 +12,7 @@ model.fc = nn.Linear(in_features, 4)
 model.load_state_dict(torch.load("models/best_resnet18_emotes_no_tongue.pth", map_location="cpu"))
 model.eval()
 
-# ---- Transforms (must match training) ----
+
 transform = transforms.Compose([
     transforms.Resize((224,224)),
     transforms.ToTensor(),
@@ -25,14 +25,9 @@ transform = transforms.Compose([
 idx_to_class = {0:"Cry", 1:"HandsUp", 2:"Still", 3:"Yawn"}
 
 def predict_cr(frame):
-    # Convert BGR (OpenCV) → RGB
     img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     img = Image.fromarray(img)
-
-    # Transform
-    img = transform(img).unsqueeze(0)  # shape: (1,3,224,224)
-
-    # Predict
+    img = transform(img).unsqueeze(0) 
     with torch.no_grad():
         outputs = model(img)
         _, pred = torch.max(outputs, 1)
