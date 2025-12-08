@@ -4,3 +4,4 @@ data/all_clips/output_clips/
 data/frames/
 models/best_resnet18_emotes_v2.pth
 __pycache__/
+mp_env/
