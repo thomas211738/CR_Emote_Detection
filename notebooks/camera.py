@@ -4,6 +4,7 @@ from PIL import Image
 import time
 from model_function import predict_cr
 
+## used AI to help write these functions and past code from online that used camera to caputure photos 
 # --- CONFIGURATION CONSTANTS ---
 WINDOW_WIDTH = 720
 WINDOW_HEIGHT = 450
