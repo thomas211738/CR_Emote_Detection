@@ -2,7 +2,12 @@ import cv2
 import numpy as np
 from PIL import Image
 import time
-from model_function_no_tongue import predict_cr  # returns class index 0..3
+from model_function_no_tongue import predict_cr  
+
+## used AI to help write these functions and past code from online that used camera to caputure photos 
+## same as camera.py but imports from model_function_no_tongue.py and uses that predict_cr function
+## since this version is for 4 instead of 5 classes, 
+## just for live demo - purposes as it seems to work a little better without toungue out class during demos
 
 # --- CONFIGURATION CONSTANTS ---
 WINDOW_WIDTH = 720

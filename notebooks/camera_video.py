@@ -4,6 +4,7 @@ from PIL import Image
 import time
 from model_function_video import predict_cr_video
 
+
 # --- CONFIGURATION CONSTANTS ---
 WINDOW_WIDTH = 720
 WINDOW_HEIGHT = 450

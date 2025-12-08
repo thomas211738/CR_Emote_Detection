@@ -6,6 +6,8 @@ import cv2
 import torch.nn.functional as F
 
 # ---- Load model ----
+## same as the model_function.py but with 4 classes (no TongueOut)
+## used AI to help write these functions 
 model = models.resnet18(weights=None)
 in_features = model.fc.in_features
 model.fc = nn.Linear(in_features, 4)
@@ -24,6 +26,7 @@ transform = transforms.Compose([
 
 idx_to_class = {0:"Cry", 1:"HandsUp", 2:"Still", 3:"Yawn"}
 
+# predict with 4 instead of 5 because no TongueOut
 def predict_cr(frame):
     img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     img = Image.fromarray(img)
@@ -31,7 +34,7 @@ def predict_cr(frame):
     with torch.no_grad():
         outputs = model(img)
         _, pred = torch.max(outputs, 1)
-        probs = F.softmax(outputs, dim=1)   # still shape (1, 4)
+        probs = F.softmax(outputs, dim=1)   
         print(outputs)
         probs = F.softmax(outputs, dim=1)[0]
         readable = [round(p.item(), 4) for p in probs]

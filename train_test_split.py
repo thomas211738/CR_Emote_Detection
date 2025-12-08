@@ -20,15 +20,10 @@ SPLITS = {
 def make_dir(path: Path):
     path.mkdir(parents=True, exist_ok=True)
 
-def clear_old_splits():
-    """Delete old train/validation/test folders so we start clean."""
-    for split_name in ["train", "validation", "test"]:
-        split_dir = OUTPUT_ROOT / split_name
-        if split_dir.exists():
-            shutil.rmtree(split_dir)
-            print(f"Removed old {split_dir}")
-        split_dir.mkdir(parents=True, exist_ok=True)
-
+## used AI to help write these function
+## Splits the videos in train val and test
+## puts the videos into folders based on their class and split
+## keeps all frames from the same video together in the same split
 def split_class_by_video(cls_name: str):
     in_dir = INPUT_ROOT / cls_name
 
@@ -39,11 +34,11 @@ def split_class_by_video(cls_name: str):
         if not fname.lower().endswith((".jpg", ".jpeg", ".png")):
             continue
 
-        stem = Path(fname).stem  # e.g. "Cry6_f1"
+        stem = Path(fname).stem  
         if "_f" in stem:
             video_id = stem.split("_f")[0]  # "Cry6"
         else:
-            video_id = stem  # fallback
+            video_id = stem  
 
         video_to_files[video_id].append(fname)
 
@@ -84,11 +79,9 @@ def split_class_by_video(cls_name: str):
                 shutil.copy2(src, dst)
 
 def main():
-    clear_old_splits()
-
+    
     for cls in CLASSES:
         split_class_by_video(cls)
-
     print("Done splitting")
 
 if __name__ == "__main__":
