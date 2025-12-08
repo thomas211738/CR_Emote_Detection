@@ -14,7 +14,7 @@ $(VENV)/bin/activate:
 # Install dependencies
 install: $(VENV)/bin/activate
 	$(PIP) install --upgrade pip
-	$(PIP) install mediapipe tensorflow opencv-python numpy pillow scikit-learn torch torchvision torchaudio
+	$(PIP) install mediapipe tensorflow opencv-python numpy pillow scikit-learn torch torchvision torchaudio seaborn matplotlib
 
 # Run camera_video.py
 run-video:
