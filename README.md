@@ -80,10 +80,7 @@ make clean
 └── mp_env/  (created after installation)
 ```
 
-## License
 
-[Add your license here]
 
-## Contributing
-
-[Add contribution guidelines here]
+## Authors
+This project was developed by Thomas Yousef, and Joshua Leeds
