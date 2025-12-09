@@ -2,6 +2,9 @@
 
 A Computer Vision project to match user actions to Clash Royale Emotes.
 
+### Note
+This model was trained on the two creators (Thomas Yousef, and Joshua Leeds) and therefore works better for them compared to other people. Please note the model may perform worse and not always correctly identify your emote.
+
 ## Setup
 
 ### 1. Install Dependencies
