@@ -3,6 +3,7 @@ import numpy as np
 from PIL import Image
 import time
 from model_function_video import predict_cr_video
+## used AI to help write these function
 
 
 # --- CONFIGURATION CONSTANTS ---
@@ -13,7 +14,7 @@ EMOJI_WINDOW_SIZE = (WINDOW_WIDTH, WINDOW_HEIGHT)
 # Performance settings
 CAMERA_WIDTH = 640
 CAMERA_HEIGHT = 480
-GIF_FPS = 10  # Target FPS for GIF animation
+GIF_FPS = 10  
 
 # Class mappings
 idx_to_class = {0:"Cry", 1:"HandsUp", 2:"Still", 3:"TongueOut", 4:"Yawn"}
@@ -163,20 +164,20 @@ while cap.isOpened():
         
         last_prediction_time = current_time
     
-    # UPDATE ANIMATION FRAME
+    
     if current_time - last_gif_update >= gif_frame_delay:
         animation_frame_index = (animation_frame_index + 1) % len(current_animation)
         last_gif_update = current_time
     
-    # Get current animation frame
+    
     animation_frame = current_animation[animation_frame_index]
     
-    # Add gesture label to camera display
+    
     status_text = "Gesture: Initializing..." if buffer_filling else f"Gesture: {current_gesture}"
     cv2.putText(camera_display, status_text, 
                 (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
     
-    # Add buffer status for first 30 frames
+    
     if buffer_filling:
         cv2.putText(camera_display, f"Buffer: {frame_count}/30", 
                     (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 165, 0), 2)
@@ -185,11 +186,11 @@ while cap.isOpened():
     cv2.imshow('Camera Feed', camera_display)
     cv2.imshow('Animation Output', animation_frame)
     
-    # Exit on 'q' press
+    
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-# --- CLEANUP ---
+
 print("Shutting down...")
 cap.release()
 cv2.destroyAllWindows()

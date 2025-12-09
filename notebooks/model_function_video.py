@@ -5,6 +5,7 @@ import tensorflow as tf
 import pickle
 from collections import deque
 from tensorflow.keras import layers # Ensure layers is imported
+## used AI to help write these function
 
 @tf.keras.utils.register_keras_serializable()
 class TemporalAttention(layers.Layer):
@@ -306,7 +307,7 @@ class VideoGesturePredictor:
                  sequence_length=30):
         
         print("Building model architecture locally...")
-        # 1. Build the empty structure
+        
         self.model = build_improved_model(input_shape=(sequence_length, 621), num_classes=5)
         
         print(f"Loading weights from {model_path}...")
@@ -335,7 +336,7 @@ class VideoGesturePredictor:
         image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         results = self.holistic.process(image_rgb)
         
-        # Combine geometric and raw features
+        
         geometric_features = self.extractor.extract_geometric_features(results)
         raw_features = self.extractor.extract_raw_landmarks(results)
         
@@ -358,23 +359,18 @@ class VideoGesturePredictor:
         # Extract features from current frame
         features = self.extract_frame_features(frame)
         
-        # Add to buffer
         self.frame_buffer.append(features)
         
-        # If buffer not full yet, return "Still" as default
         if len(self.frame_buffer) < self.sequence_length:
             return 2, [0.0, 0.0, 1.0, 0.0, 0.0], "Still"
         
-        # Convert buffer to sequence array
-        sequence = np.array(list(self.frame_buffer))  # Shape: (sequence_length, num_features)
         
-        # Add temporal features (velocity, acceleration)
+        sequence = np.array(list(self.frame_buffer))  
+        
         sequence_with_temporal = self.extractor.compute_temporal_features(sequence)
         
-        # Normalize features
         sequence_normalized = self.scaler.transform(sequence_with_temporal)
         
-        # Reshape for model input: (1, sequence_length, features)
         sequence_input = sequence_normalized.reshape(1, self.sequence_length, -1)
         
         # Predict
@@ -395,7 +391,7 @@ class VideoGesturePredictor:
             self.holistic.close()
 
 
-# Global predictor instance (initialized once)
+
 _predictor = None
 
 def predict_cr_video(frame):
@@ -410,7 +406,7 @@ def predict_cr_video(frame):
     """
     global _predictor
     
-    # Initialize predictor on first call
+    
     if _predictor is None:
         print("Initializing video gesture predictor...")
         _predictor = VideoGesturePredictor(
