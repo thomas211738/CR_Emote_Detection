@@ -1,1 +1,89 @@
-# CR_Emote_Detection
+# Clash Royale Emote Detector Project
+
+A Computer Vision project to match user actions to Clash Royale Emotes.
+
+## Setup
+
+### 1. Install Dependencies
+
+Create a virtual environment and install all required packages:
+
+```bash
+make install
+```
+
+This will:
+- Create a virtual environment named `mp_env`
+- Upgrade pip to the latest version
+- Install the following dependencies:
+  - mediapipe
+  - tensorflow
+  - opencv-python
+  - numpy
+  - pillow
+  - scikit-learn
+  - torch
+  - torchvision
+  - torchaudio
+  - seaborn
+  - matplotlib
+
+## Usage
+
+### Best Model: Video Based
+
+Process video input from camera:
+
+```bash
+make run-video
+```
+
+This executes `notebooks/camera_video.py`
+
+### Frame-Based Transfer (5 emotes)
+
+Capture photos with camera:
+
+```bash
+make run-photo
+```
+
+This executes `notebooks/camera.py`
+
+### Frame-Based Transfer (4 emotes) (No Tongue Detection)
+
+Capture photos with camera without tongue detection:
+
+```bash
+make run-photo-no-tongue
+```
+
+This executes `notebooks/camera_no_tongue.py`
+
+## Cleanup
+
+Remove the virtual environment:
+
+```bash
+make clean
+```
+
+## Project Structure
+
+```
+.
+├── Makefile
+├── notebooks/
+│   ├── camera_video.py
+│   ├── camera.py
+│   └── camera_no_tongue.py
+└── mp_env/  (created after installation)
+```
+
+## License
+
+[Add your license here]
+
+## Contributing
+
+[Add contribution guidelines here]
